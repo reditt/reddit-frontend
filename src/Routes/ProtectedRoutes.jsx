@@ -1,12 +1,14 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import Header from "../components/Header";
+import Wrapper from "../components/Wrapper";
 
 const user = localStorage.getItem("user");
 const token = localStorage.getItem("token");
 
 const isAuthenticated = false;
-if (user && token) isAuthenticated = true;
+// if (user && token) isAuthenticated = true;
 
 const ProtectedRoutes = ({ component: Component, ...rest }) => {
   return (
@@ -16,14 +18,18 @@ const ProtectedRoutes = ({ component: Component, ...rest }) => {
         isAuthenticated ? (
           <>
             {
-              // Add header here}
-              <Component {...rest} {...props} />
-              //add footer here
+              <div>
+                <Header />
+                <Wrapper>
+                  <Component {...rest} {...props} />
+                </Wrapper>
+              </div>
             }
           </>
         ) : (
-          // <Redirect to="/" />
-          <div>not authed</div>
+          <>
+            <Redirect to="/signup" />
+          </>
         )
       }
     />
