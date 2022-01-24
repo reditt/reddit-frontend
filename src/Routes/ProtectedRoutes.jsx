@@ -4,8 +4,8 @@ import { Route, Redirect } from "react-router-dom";
 import Header from "../components/Header";
 import Wrapper from "../components/Wrapper";
 
-const user = localStorage.getItem("user");
-const token = localStorage.getItem("token");
+// const user = localStorage.getItem("user");
+// const token = localStorage.getItem("token");
 
 const isAuthenticated = false;
 // if (user && token) isAuthenticated = true;
