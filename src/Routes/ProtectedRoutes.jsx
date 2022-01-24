@@ -7,7 +7,7 @@ import Wrapper from "../components/Wrapper";
 // const user = localStorage.getItem("user");
 // const token = localStorage.getItem("token");
 
-const isAuthenticated = false;
+const isAuthenticated = true;
 // if (user && token) isAuthenticated = true;
 
 const ProtectedRoutes = ({ component: Component, ...rest }) => {

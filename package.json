@@ -5,7 +5,6 @@
   "author": "Mihir Verma",
   "private": false,
   "dependencies": {
-    "@chakra-ui/react": "^1.7.3",
     "@craco/craco": "^6.2.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -19,6 +18,7 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.2.1",
     "react-scripts": "4.0.3",
+    "react-toastify": "^8.1.0",
     "redux": "^4.1.2",
     "tls-test": "https://tls-test.npmjs.com/tls-test-1.0.0.tgz",
     "web-vitals": "^1.0.1",
@@ -27,7 +27,6 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build"
-
   },
   "eslintConfig": {
     "extends": [

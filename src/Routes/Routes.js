@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Header from "../components/Header";
 import Wrapper from "../components/Wrapper";
 import Home from "../pages/Home";
+import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import ProtectedRoutes from "./ProtectedRoutes";
 
@@ -12,9 +13,10 @@ const Router = () => {
       <Switch>
         <div>
           <Header />
-          <Wrapper>
-            <Route exact path="/signup" component={Signup} />
-          </Wrapper>
+          {/* <Wrapper> */}
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/login" component={Login} />
+          {/* </Wrapper> */}
         </div>
         <ProtectedRoutes exact path="/" component={Home} />
       </Switch>
