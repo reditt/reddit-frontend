@@ -1,6 +1,6 @@
-import { baseURL, setTokenLocal } from "../utils/axios";
+import { baseURL, setTokenLocal, getTokenLocal } from "../utils/axios";
 import ApiRoutes from "../config/endpoints.config";
-import HttpClient from "./httpClient";
+import HttpClient from "./index.api";
 
 class Auth extends HttpClient {
   constructor() {
@@ -33,6 +33,8 @@ class Auth extends HttpClient {
 
   loginConfig = ApiRoutes.Auth.UserSignin;
   signupConfig = ApiRoutes.Auth.UserSignup;
+  forgotConfig = ApiRoutes.Auth.SendMail;
+  resetConfig = ApiRoutes.Auth.ResetPassword;
 
   userLogin = async (data) => {
     return this.instance({
@@ -44,6 +46,15 @@ class Auth extends HttpClient {
   };
 
   userSignup = async (data) => {
+    return this.instance({
+      method: this.signupConfig.Method,
+      url: this.signupConfig.Endpoint,
+      headers: {},
+      data,
+    });
+  };
+
+  forgotPassword = async (data) => {
     return this.instance({
       method: this.signupConfig.Method,
       url: this.signupConfig.Endpoint,

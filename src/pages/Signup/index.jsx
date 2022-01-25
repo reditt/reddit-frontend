@@ -5,10 +5,14 @@ import { ReactComponent as Dots } from "../../assets/dots.svg";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import Auth from "../../api/auth.api";
+import Loader from "../../components/Loader";
+
+const authAPI = new Auth();
 
 const Signup = () => {
   const Navigate = useHistory();
-
+  const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -25,7 +29,13 @@ const Signup = () => {
     setUserData({ ...userData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const validateAlphaNumericPassword = (pwd) => {
+    var re = /^[a-z0-9]+$/i;
+    return re.test(pwd);
+  };
+
+  const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const passCheck = encryptedPassword === confirmPassword;
     if (!name || !email || !encryptedPassword || !confirmPassword) {
@@ -37,6 +47,31 @@ const Signup = () => {
         pauseOnHover: false,
         draggable: true,
       });
+      setLoading(false);
+      return 0;
+    }
+    if (encryptedPassword.length < 8) {
+      toast.error("your password length must be 8 characters long!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
+      setLoading(false);
+      return 0;
+    }
+    if (validateAlphaNumericPassword(encryptedPassword)) {
+      toast.error("password should be alphanumaric", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
+      setLoading(false);
       return 0;
     }
     if (!passCheck) {
@@ -48,11 +83,53 @@ const Signup = () => {
         pauseOnHover: false,
         draggable: true,
       });
+      setLoading(false);
       return 0;
+    }
+    try {
+      let data = { ...userData };
+      delete data.confirmPassword;
+      const result = await authAPI.userSignup(data);
+      if (result.status === 201) {
+        localStorage.setItem("user", result.data.data);
+        localStorage.setItem("token", result.data.token);
+        toast.success("Signed up successfully🎉 ", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        });
+        Navigate.push("/");
+        setLoading(false);
+      } else {
+        toast.error(result.data.error, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
+      setLoading(false);
     }
   };
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="w-full flex text-gray-900 h-screen fill-scr">
       <div className="hidden md:flex md:flex-col md:w-1/2 bg-gray-50 ">
         <div className="pt-4">
@@ -67,15 +144,17 @@ const Signup = () => {
         </div>
       </div>
       <div className="p-2 px-4 w-full md:w-1/2">
-        <p className="text-sm">
-          Have an account?{" "}
-          <span
-            onClick={() => Navigate.push("/login")}
-            className="text-primary cursor-pointer"
-          >
-            Signin
-          </span>
-        </p>
+        <div className="text-center w-full">
+          <p className="text-sm">
+            Have an account?{" "}
+            <span
+              onClick={() => Navigate.push("/login")}
+              className="text-primary cursor-pointer"
+            >
+              Signin
+            </span>
+          </p>
+        </div>
         <div className="text-center mt-12 flex flex-col">
           <h2 className="inline-flex text-3xl font-semibold mx-auto ">
             Welcome to <Logo className="ml-2" />
@@ -130,7 +209,7 @@ const Signup = () => {
               </label>
               <input
                 onChange={handleChange}
-                type="text"
+                type="password"
                 name="confirmPassword"
                 value={confirmPassword}
                 placeholder="Confirm password"

@@ -16,7 +16,15 @@ const ApiRoutes = {
       Endpoint: "/signin",
       Method: HttpMethod.Post,
     },
+    SendMail: {
+      Endpoint: "/forgotpassword",
+      Method: HttpMethod.Post,
+    },
+    ResetPassword: {
+      Endpoint: "/forgotpassword",
+      Method: HttpMethod.Put,
+    },
   },
 };
 
-export default ApiRoutes
+export default ApiRoutes;
