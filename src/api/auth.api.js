@@ -56,8 +56,17 @@ class Auth extends HttpClient {
 
   forgotPassword = async (data) => {
     return this.instance({
-      method: this.signupConfig.Method,
-      url: this.signupConfig.Endpoint,
+      method: this.forgotConfig.Method,
+      url: this.forgotConfig.Endpoint,
+      headers: {},
+      data,
+    });
+  };
+
+  resetPassword = async (data) => {
+    return this.instance({
+      method: this.resetConfig.Method,
+      url: this.resetConfig.Endpoint,
       headers: {},
       data,
     });
