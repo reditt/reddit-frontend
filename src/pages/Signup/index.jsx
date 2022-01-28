@@ -1,7 +1,6 @@
 import React from "react";
 import { ReactComponent as Logo } from "../../assets/maddit.svg";
 import { ReactComponent as SignupLogo } from "../../assets/signup.svg";
-import { ReactComponent as Dots } from "../../assets/dots.svg";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -20,8 +19,7 @@ const Signup = () => {
     confirmPassword: "",
     profilePhoto: "",
   });
-  const { name, email, encryptedPassword, profilePhoto, confirmPassword } =
-    userData;
+  const { name, email, encryptedPassword, confirmPassword } = userData;
 
   const handleChange = (e) => {
     const name = e.target.name;

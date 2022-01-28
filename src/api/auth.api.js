@@ -1,4 +1,4 @@
-import { baseURL, setTokenLocal, getTokenLocal } from "../utils/axios";
+import { baseURL, setTokenLocal } from "../utils/axios";
 import ApiRoutes from "../config/endpoints.config";
 import HttpClient from "./index.api";
 
@@ -11,8 +11,6 @@ class Auth extends HttpClient {
 
   _initializeRequestInterceptor = () => {
     this.instance.interceptors.request.use((config) => {
-      const token = getTokenLocal() || "";
-      config.headers.Authorization = token;
       return config;
     });
   };
@@ -67,8 +65,12 @@ class Auth extends HttpClient {
     return this.instance({
       method: this.resetConfig.Method,
       url: this.resetConfig.Endpoint,
-      headers: {},
-      data,
+      headers: {
+        authorization: data.resetoken,
+      },
+      data: {
+        encryptedPassword: data.encryptedPassword,
+      },
     });
   };
 }

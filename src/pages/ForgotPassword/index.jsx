@@ -1,7 +1,6 @@
 import React from "react";
 import { ReactComponent as Logo } from "../../assets/maddit.svg";
 import { ReactComponent as ForgotLogo } from "../../assets/forgot.svg";
-import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Auth from "../../api/auth.api";
@@ -10,8 +9,6 @@ import Loader from "../../components/Loader";
 const authApi = new Auth();
 
 const ForgotPassword = ({ location }) => {
-  const Navigate = useHistory();
-
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
     email: location.state,
@@ -42,7 +39,7 @@ const ForgotPassword = ({ location }) => {
     }
 
     try {
-      const result = await authApi.forgotPassword(email);
+      const result = await authApi.forgotPassword({ email });
       if (result.status === 200) {
         toast.success("Email has been sent to you mail id", {
           position: "top-right",

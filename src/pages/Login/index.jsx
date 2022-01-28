@@ -1,16 +1,25 @@
 import React from "react";
 import { ReactComponent as Logo } from "../../assets/maddit.svg";
 import { ReactComponent as SignupLogo } from "../../assets/signup.svg";
-import { ReactComponent as Dots } from "../../assets/dots.svg";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Auth from "../../api/auth.api";
 import Loader from "../../components/Loader";
+import { css } from "@emotion/react";
+import ClipLoader from "react-spinners/SyncLoader";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/actions/setUser.action";
+
+const override = css`
+  display: inline;
+  margin-right: 0.5rem;
+`;
 
 const authAPI = new Auth();
 const Login = () => {
   const Navigate = useHistory();
+  const Dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
@@ -45,7 +54,10 @@ const Login = () => {
       let data = { email: email, password: encryptedPassword };
       const result = await authAPI.userLogin(data);
       if (result.status === 200) {
-        localStorage.setItem("user", result.data.data);
+        console.log(result);
+        localStorage.setItem("user", JSON.stringify(result.data.user));
+        Dispatch(setUser(result.data.user));
+
         localStorage.setItem("token", result.data.token);
         toast.success("Signed in successfully🎉 ", {
           position: "top-right",
@@ -142,9 +154,19 @@ const Login = () => {
             <div className="w-full">
               <button
                 type="submit"
-                className="h-10 bg-primary text-white font-medium w-full text-center rounded-md mt-8"
+                className="h-10 bg-primary text-white font-medium w-full text-center rounded-md mt-8 flex items-center justify-center"
+                disabled={loading}
               >
-                Login
+                {loading ? (
+                  <ClipLoader
+                    color="#ffff"
+                    loading={true}
+                    css={override}
+                    size={5}
+                  />
+                ) : (
+                  <div>Login</div>
+                )}
               </button>
             </div>
           </form>

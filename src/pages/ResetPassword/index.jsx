@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ReactComponent as Logo } from "../../assets/maddit.svg";
 import { ReactComponent as ForgotLogo } from "../../assets/forgot.svg";
-import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import jwt_decode from "jwt-decode";
 import Auth from "../../api/auth.api";
+import { useHistory, useParams } from "react-router-dom";
 import Loader from "../../components/Loader";
-import { useParams } from "react-router-dom";
 
+const authApi = new Auth();
 const ResetPassword = () => {
-  const Navigate = useHistory();
   const Params = useParams();
+  const Navigate = useHistory();
 
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
@@ -20,6 +21,27 @@ const ResetPassword = () => {
 
   const { encryptedPassword, confirmPassword } = userData;
   const resetoken = Params.token;
+
+  useEffect(() => {
+    try {
+      const decoded = jwt_decode(resetoken);
+      if (decoded) {
+        return 0;
+      } else {
+        Navigate.push("/");
+      }
+    } catch (error) {
+      toast.error("unauthorized access", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
+      Navigate.push("/");
+    }
+  });
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -87,13 +109,17 @@ const ResetPassword = () => {
     }
 
     try {
+      const result = authApi.resetPassword({ encryptedPassword, resetoken });
+      console.log(result);
     } catch (error) {
       console.log(error);
       setLoading(false);
     }
   };
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="w-full flex text-gray-900 h-screen fill-scr">
       <div className="hidden md:flex md:flex-col md:w-1/2 bg-gray-50 ">
         <div className="pt-4">

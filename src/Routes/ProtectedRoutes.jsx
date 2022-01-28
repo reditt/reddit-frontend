@@ -1,37 +1,21 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import Header from "../components/Header";
 import Wrapper from "../components/Wrapper";
-
-// const user = localStorage.getItem("user");
-// const token = localStorage.getItem("token");
-
-const isAuthenticated = true;
-// if (user && token) isAuthenticated = true;
+import { isAuthenticated } from "../utils/isAuthed.utils";
 
 const ProtectedRoutes = ({ component: Component, ...rest }) => {
+  if (!isAuthenticated) {
+    return <Redirect to="/login" />;
+  }
   return (
     <Route
       {...rest}
-      children={(props) =>
-        isAuthenticated ? (
-          <>
-            {
-              <div>
-                <Header />
-                <Wrapper>
-                  <Component {...rest} {...props} />
-                </Wrapper>
-              </div>
-            }
-          </>
-        ) : (
-          <>
-            <Redirect to="/signup" />
-          </>
-        )
-      }
+      render={() => (
+        <Wrapper>
+          <Component />
+        </Wrapper>
+      )}
     />
   );
 };

@@ -21,7 +21,7 @@ const ApiRoutes = {
       Method: HttpMethod.Post,
     },
     ResetPassword: {
-      Endpoint: "/forgotpassword",
+      Endpoint: "/resetpassword",
       Method: HttpMethod.Put,
     },
   },

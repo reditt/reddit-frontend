@@ -6,17 +6,24 @@ module.exports = {
       spacing: {
         wrapper: "1024px",
         searchbar: "40rem",
+        modal: "550px",
       },
       colors: {
         primary: "#4DACFF",
+        black: "#2d2d2d",
+        modal: "rgba(0, 0, 0, 0.8)",
       },
       screens: {
         mob: "400px",
+      },
+      fontSize: {
+        xxs: "11px",
       },
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  // plugins: [require("@themesberg/flowbite/plugin")],
+  // content: ["./node_modules/@themesberg/flowbite/**/*.js"],
 };
