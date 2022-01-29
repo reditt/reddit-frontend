@@ -4,7 +4,7 @@ import animationData from "../../assets/loading.json";
 
 const Loader = () => {
   const style = {
-    height: 250,
+    height: 230,
     marginTop: "8rem",
   };
   return (

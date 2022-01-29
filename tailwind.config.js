@@ -3,18 +3,19 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      screens: {
+        mob: "400px",
+      },
       spacing: {
         wrapper: "1024px",
         searchbar: "40rem",
-        modal: "550px",
+        modalw: "550px",
+        modalh: "570px",
       },
       colors: {
         primary: "#4DACFF",
         black: "#2d2d2d",
         modal: "rgba(0, 0, 0, 0.8)",
-      },
-      screens: {
-        mob: "400px",
       },
       fontSize: {
         xxs: "11px",

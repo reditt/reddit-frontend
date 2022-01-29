@@ -25,6 +25,18 @@ const ApiRoutes = {
       Method: HttpMethod.Put,
     },
   },
+  Cloudinary: {
+    ImageUpload: {
+      Endpoint: "/image/upload",
+      Method: "Post",
+    },
+  },
+  Community: {
+    CreateCommunity: {
+      Endpoint: "/community",
+      Method: "Post",
+    },
+  },
 };
 
 export default ApiRoutes;
