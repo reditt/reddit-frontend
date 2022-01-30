@@ -5,7 +5,7 @@
   height: calc(100vh - 3.5rem);
 }
 body {
-  background-color: white;
+  background-color: #eff1f3;
   box-sizing: border-box;
 }
 
@@ -20,15 +20,15 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #fafafa;
+  background: #ffffff;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #e4e4e4;
+  background: #9b9da3;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #bec9d3;
+  background: #acacac;
 }

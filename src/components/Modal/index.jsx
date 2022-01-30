@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { ReactComponent as Close } from "../../assets/close.svg";
@@ -8,7 +9,11 @@ const Modal = ({ children }) => {
 
   return (
     <div className="w-screen bg-modal  fill-overlay z-10 absolute left-0 top-14 flex justify-center ">
-      <div className="w-11/12 sm:w-modalw md:w-modalw bg-white rounded-md relative opacity-100 mt-16 max-h-modalh overflow-y-auto shadow-xl">
+      <motion.div
+        animate={{ scale: [0, 1.03, 1], opacity: [0, 1] }}
+        transition={{ duration: 0.4 }}
+        className="w-11/12 sm:w-modalw md:w-modalw bg-white rounded-md relative opacity-100 mt-16 max-h-modalh overflow-y-auto shadow-xl"
+      >
         <Close
           onClick={() => {
             Dispatch(setCommunityModal(false));
@@ -16,7 +21,7 @@ const Modal = ({ children }) => {
           className="absolute top-4 right-4 w-3.5 cursor-pointer"
         />
         {children}
-      </div>
+      </motion.div>
     </div>
   );
 };

@@ -62,8 +62,13 @@ const Header = () => {
     </div>
   ) : (
     <>
-      <div className="w-full h-14 px-2 border-2 flex items-center shadow-sm relative z-20 bg-white">
-        <Logo className="h-9" />
+      <div className="w-full h-14 px-2 border-2 flex items-center shadow-sm sticky top-0 z-20 bg-white">
+        <Logo
+          onClick={() => {
+            Navigate.push("/");
+          }}
+          className="h-9 cursor-pointer"
+        />
         <div
           ref={wrapperRef}
           onClick={() => {
@@ -101,14 +106,14 @@ const Header = () => {
             onChange={handleSearch}
           />
         </div>
-        <div className=" flex items-center border-2  border-gray-100 rounded-md absolute right-6 cursor-pointer">
-          <div
-            ref={wrapperRef2}
-            onClick={() => {
-              setIsopenmenu2(true);
-            }}
-            className="flex items-center  px-1  cursor-pointer"
-          >
+        <div
+          ref={wrapperRef2}
+          onClick={() => {
+            setIsopenmenu2(true);
+          }}
+          className=" flex items-center border-2  border-gray-100 rounded-md absolute right-6 cursor-pointer"
+        >
+          <div className="flex items-center  px-1  cursor-pointer">
             <div className="w-7 h-7 rounded-full ">
               <img
                 className="w-full h-full rounded-full object-cover object-center"

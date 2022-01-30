@@ -11,6 +11,8 @@ module.exports = {
         searchbar: "40rem",
         modalw: "550px",
         modalh: "570px",
+        thirty: "30%",
+        seventy: "70%",
       },
       colors: {
         primary: "#4DACFF",
