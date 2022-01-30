@@ -6,6 +6,7 @@ import { colourStyles } from "../../helpers/react-select.helper";
 import { ReactComponent as Delete } from "../../assets/delete.svg";
 import { ReactComponent as Image } from "../../assets/image.svg";
 import { ReactComponent as Post } from "../../assets/post.svg";
+import { motion } from "framer-motion";
 
 const animatedComponents = makeAnimated();
 
@@ -26,7 +27,11 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="py-6 flex gap-5">
+    <motion.div
+      animate={{ x: [-200, 10, 0], opacity: [0, 1] }}
+      transition={{ duration: 0.7 }}
+      className="py-6 flex gap-5"
+    >
       <div className=" border-gray-200 lg:w-seventy">
         <div className="flex justify-between items-center pr-2 border-gray-100 border-b-2 pb-4">
           <h1 className="font-semibold text-black text-lg flex items-center">
@@ -154,7 +159,7 @@ const CreatePost = () => {
         </div>
       </div>
       <div className=" border-gray-100 lg:w-thirty">test</div>
-    </div>
+    </motion.div>
   );
 };
 

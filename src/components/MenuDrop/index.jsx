@@ -45,6 +45,9 @@ const MenuDrop = ({ setIsopenmenu }) => {
           <button
             onClick={() => {
               Navigate.push("/createpost");
+              setTimeout(() => {
+                setIsopenmenu(false);
+              }, 0);
             }}
             className="sm:px-2 py-1 flex w-full items-center justify-between hover:bg-gray-100"
           >
