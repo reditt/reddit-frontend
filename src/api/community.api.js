@@ -1,4 +1,4 @@
-import { baseURL, setTokenLocal } from "../utils/axios";
+import { baseURL, getTokenLocal, setTokenLocal } from "../utils/axios";
 import ApiRoutes from "../config/endpoints.config";
 import HttpClient from "./index.api";
 
@@ -11,6 +11,7 @@ class Community extends HttpClient {
 
   _initializeRequestInterceptor = () => {
     this.instance.interceptors.request.use((config) => {
+      config.headers["authorization"] = getTokenLocal();
       return config;
     });
   };
@@ -18,9 +19,6 @@ class Community extends HttpClient {
   _initializeResponseInterceptor = () => {
     this.instance.interceptors.response.use(
       (response) => {
-        if (response.status === 200) {
-          setTokenLocal(response.data.token);
-        }
         return response;
       },
       (response) => {
@@ -30,6 +28,7 @@ class Community extends HttpClient {
   };
 
   createConfig = ApiRoutes.Community.CreateCommunity;
+  checkNameConfig = ApiRoutes.Community.CheckName;
 
   createCommmunity = async (data) => {
     return this.instance({
@@ -37,6 +36,17 @@ class Community extends HttpClient {
       url: this.createConfig.Endpoint,
       headers: {},
       data,
+    });
+  };
+
+  checkCommunityName = async (name) => {
+    return this.instance({
+      method: this.checkNameConfig.Method,
+      url: this.checkNameConfig.Endpoint,
+      headers: {},
+      params: {
+        name: name,
+      },
     });
   };
 }

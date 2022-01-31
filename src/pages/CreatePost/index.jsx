@@ -17,6 +17,7 @@ const CreatePost = () => {
     { value: "vanilla", label: "Vanilla" },
   ];
   const fileRef = useRef(null);
+
   const [photo, setPhoto] = useState([]);
 
   // * handling image files
@@ -30,9 +31,9 @@ const CreatePost = () => {
     <motion.div
       animate={{ x: [-200, 10, 0], opacity: [0, 1] }}
       transition={{ duration: 0.7 }}
-      className="py-6 flex gap-5"
+      className="mob:w-11/12 mob:flex mob:flex-col mob:mx-auto py-6 gap-5 md:flex-row sm:px-4 sm:w-full md:m-0 lg:px-0"
     >
-      <div className=" border-gray-200 lg:w-seventy">
+      <div className=" border-gray-200 md:w-seventy">
         <div className="flex justify-between items-center pr-2 border-gray-100 border-b-2 pb-4">
           <h1 className="font-semibold text-black text-lg flex items-center">
             Create post
@@ -158,7 +159,9 @@ const CreatePost = () => {
           </form>
         </div>
       </div>
-      <div className=" border-gray-100 lg:w-thirty">test</div>
+      <div className="mob:hidden md:flex border-gray-100 md:w-thirty">
+        tesasdsdadsdt
+      </div>
     </motion.div>
   );
 };

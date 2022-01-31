@@ -1,18 +1,22 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/maddit.svg";
 import { ReactComponent as Search } from "../../assets/search.svg";
-import { ReactComponent as Home } from "../../assets/home.svg";
 import { ReactComponent as Drop } from "../../assets/dropdown.svg";
 import { ReactComponent as Dropinvert } from "../../assets/invertdropdown.svg";
 import { isAuthenticated } from "../../utils/isAuthed.utils";
 import useOutsideAlerter from "../../utils/outsideClick.utils";
 import MenuDrop from "../MenuDrop";
 import ProfileMenu from "../MenuDrop/ProfileMenu";
+import { useSelector } from "react-redux";
+import CommunityModal from "../CommunityModal";
+import { feeds, create } from "../../constants/navigation.constant";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
   const Navigate = useHistory();
   const Auth = isAuthenticated();
+  const Location = useLocation();
   const wrapperRef = useRef(null);
   const wrapperRef2 = useRef(null);
 
@@ -20,16 +24,36 @@ const Header = () => {
   const [search, setSearch] = useState("");
   const [isopenmenu, setIsopenmenu] = useState(false);
   const [isopenmenu2, setIsopenmenu2] = useState(false);
+  const [indexForHead, setIndexForHead] = useState({
+    indexCreate: {},
+    indexFeed: {},
+  });
 
   // * refs
   useOutsideAlerter(wrapperRef, setIsopenmenu);
   useOutsideAlerter(wrapperRef2, setIsopenmenu2);
+
+  // *useeffects
+  useEffect(() => {
+    const indexCreate = create.find((item) => item.Route === Location.pathname);
+    console.log(indexCreate);
+    const indexFeed = feeds.find((item) => item.Route === Location.pathname);
+    console.log(indexFeed);
+    setIndexForHead({
+      indexCreate: indexCreate ? indexCreate : undefined,
+      indexFeed: indexFeed ? indexFeed : undefined,
+    });
+  }, [Location.pathname]);
 
   // * function for handlechange search
   const handleSearch = (e) => {
     setSearch(e.target.value);
     console.log(search);
   };
+
+  const isOpenCommunityModal = useSelector(
+    (state) => state.modalReducer.communityModal
+  );
 
   // * check for auth header
   return !Auth ? (
@@ -85,8 +109,19 @@ const Header = () => {
             className="sm:px-1 flex w-full items-center justify-between"
           >
             <span className="flex text-sm items-end">
-              <Home className="w-4 mr-1" />
-              Home
+              {indexForHead?.indexCreate?.Icon ? (
+                <>
+                  <indexForHead.indexCreate.Icon className="w-4 mr-1" />
+                  {indexForHead?.indexCreate?.Label}
+                </>
+              ) : indexForHead?.indexFeed?.Icon ? (
+                <>
+                  <indexForHead.indexFeed.Icon className="w-4 mr-1" />
+                  {indexForHead?.indexFeed?.Label}
+                </>
+              ) : (
+                "null"
+              )}
             </span>
             {!isopenmenu ? (
               <Drop className="w-4" />
@@ -133,6 +168,7 @@ const Header = () => {
           {isopenmenu2 ? <ProfileMenu setIsopenmenu2={setIsopenmenu2} /> : null}
         </div>
       </div>
+      {isOpenCommunityModal ? <CommunityModal /> : null}
     </>
   );
 };

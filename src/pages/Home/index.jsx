@@ -1,13 +1,8 @@
 import { motion } from "framer-motion";
 import React from "react";
-import { useSelector } from "react-redux";
 import logo from "../../assets/logo512.png";
-import CommunityModal from "../../components/CommunityModal";
 
 const Home = () => {
-  const isOpenCommunityModal = useSelector(
-    (state) => state.modalReducer.communityModal
-  );
   return (
     <>
       <motion.div
@@ -25,7 +20,6 @@ const Home = () => {
           <p className="text-gray-500">Hello from mihir verma</p>
         </div>
       </motion.div>
-      {isOpenCommunityModal ? <CommunityModal /> : null}
     </>
   );
 };

@@ -56,9 +56,9 @@ const Login = () => {
       if (result.status === 200) {
         console.log(result);
         localStorage.setItem("user", JSON.stringify(result.data.user));
+        localStorage.setItem("token", result.data.token);
         Dispatch(setUser(result.data.user));
 
-        localStorage.setItem("token", result.data.token);
         toast.success("Signed in successfully🎉 ", {
           position: "top-right",
           autoClose: 3000,
@@ -68,6 +68,15 @@ const Login = () => {
           draggable: true,
         });
         Navigate.push("/");
+      } else {
+        toast.error("invalid credentials ", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        });
         setLoading(false);
       }
     } catch (error) {

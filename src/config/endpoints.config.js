@@ -28,13 +28,17 @@ const ApiRoutes = {
   Cloudinary: {
     ImageUpload: {
       Endpoint: "/image/upload",
-      Method: "Post",
+      Method: HttpMethod.Post,
     },
   },
   Community: {
     CreateCommunity: {
       Endpoint: "/community",
-      Method: "Post",
+      Method: HttpMethod.Post,
+    },
+    CheckName: {
+      Endpoint: "/community/checkname",
+      Method: HttpMethod.Get,
     },
   },
 };

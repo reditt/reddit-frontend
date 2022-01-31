@@ -1,11 +1,9 @@
-import { ReactComponent as Add } from "../../assets/add.svg";
-import { ReactComponent as Post } from "../../assets/post.svg";
-import { ReactComponent as Community } from "../../assets/community.svg";
 import { useDispatch } from "react-redux";
 import { setCommunityModal } from "../../redux/actions/modal.action";
 import { headerVariants } from "../../helpers/framer.helper";
 import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
+import { create, feeds } from "../../constants/navigation.constant";
 
 const MenuDrop = ({ setIsopenmenu }) => {
   const Dispatch = useDispatch();
@@ -22,46 +20,67 @@ const MenuDrop = ({ setIsopenmenu }) => {
       >
         <p className=" sm:px-2 text-xs font-semibold mb-1">Create something</p>
         <div className="w-full">
-          <button
-            onClick={() => {
-              Dispatch(setCommunityModal(true));
-              setTimeout(() => {
-                setIsopenmenu(false);
-              }, 0);
-            }}
-            className="sm:px-2 py-1 flex w-full items-center justify-between hover:bg-gray-100"
-          >
-            <span className="flex text-xs items-center font-medium">
-              <Community className="w-4 mr-1" />
-              <motion.span
-                transition={{ duration: 0.4 }}
-                whileHover={{ x: [0, 3, 0] }}
+          {create.map((item, index) => {
+            return (
+              <button
+                key={index}
+                onClick={() => {
+                  if (item.Label.includes("community")) {
+                    Dispatch(setCommunityModal(true));
+                    setTimeout(() => {
+                      setIsopenmenu(false);
+                    }, 0);
+                  } else {
+                    Navigate.push(`${item.Route}`);
+                    setTimeout(() => {
+                      setIsopenmenu(false);
+                    }, 0);
+                  }
+                }}
+                className="sm:px-2 py-1 flex w-full items-center justify-between hover:bg-gray-100"
               >
-                Create community
-              </motion.span>
-            </span>
-            <Add className="w-4" />
-          </button>
-          <button
-            onClick={() => {
-              Navigate.push("/createpost");
-              setTimeout(() => {
-                setIsopenmenu(false);
-              }, 0);
-            }}
-            className="sm:px-2 py-1 flex w-full items-center justify-between hover:bg-gray-100"
-          >
-            <span className="flex text-xs items-center font-medium">
-              <Post className="w-4 mr-1" />
-              <motion.span
-                transition={{ duration: 0.4 }}
-                whileHover={{ x: [0, 3, 0] }}
+                <span className="flex text-xs items-center font-medium">
+                  <item.Icon className="w-4 mr-1" />
+                  <motion.span
+                    transition={{ duration: 0.4 }}
+                    whileHover={{ x: [0, 3, 0] }}
+                  >
+                    {item.Label}
+                  </motion.span>
+                </span>
+                <item.SideIcon className="w-4" />
+              </button>
+            );
+          })}
+        </div>
+
+        <p className=" sm:px-2 text-xs font-semibold mb-1 mt-2">Feeds</p>
+        <div className="w-full">
+          {feeds.map((item, index) => {
+            return (
+              <button
+                key={index}
+                onClick={() => {
+                  Navigate.push(`${item.Route}`);
+                  setTimeout(() => {
+                    setIsopenmenu(false);
+                  }, 0);
+                }}
+                className="sm:px-2 py-1 flex w-full items-center justify-between hover:bg-gray-100"
               >
-                Create post
-              </motion.span>
-            </span>
-            <Add className="w-4" />
-          </button>
+                <span className="flex text-xs items-center font-medium">
+                  <item.Icon className="w-4 mr-1" />
+                  <motion.span
+                    transition={{ duration: 0.4 }}
+                    whileHover={{ x: [0, 3, 0] }}
+                  >
+                    {item.Label}
+                  </motion.span>
+                </span>
+                {item?.SideIcon ? <item.SideIcon className="w-4" /> : null}
+              </button>
+            );
+          })}
         </div>
       </motion.div>
     </>

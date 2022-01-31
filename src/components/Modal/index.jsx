@@ -8,7 +8,7 @@ const Modal = ({ children }) => {
   const Dispatch = useDispatch();
 
   return (
-    <div className="w-screen bg-modal  fill-overlay z-10 absolute left-0 top-14 flex justify-center ">
+    <div className="w-full bg-modal  fill-overlay z-10 fixed left-0 top-14 flex justify-center ">
       <motion.div
         animate={{ scale: [0, 1.03, 1], opacity: [0, 1] }}
         transition={{ duration: 0.4 }}

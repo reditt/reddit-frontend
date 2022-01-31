@@ -1,11 +1,14 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    screens: {
+      mob: "350px",
+      ...defaultTheme.screens,
+    },
     extend: {
-      screens: {
-        mob: "400px",
-      },
       spacing: {
         wrapper: "1024px",
         searchbar: "40rem",
