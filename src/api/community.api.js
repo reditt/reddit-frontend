@@ -1,4 +1,4 @@
-import { baseURL, getTokenLocal, setTokenLocal } from "../utils/axios";
+import { baseURL, getTokenLocal } from "../utils/axios";
 import ApiRoutes from "../config/endpoints.config";
 import HttpClient from "./index.api";
 

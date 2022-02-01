@@ -7,17 +7,18 @@ import { isAuthenticated } from "../utils/isAuthed.utils";
 const ProtectedRoutes = ({ component: Component, ...rest }) => {
   if (!isAuthenticated) {
     return <Redirect to="/login" />;
+  } else {
+    return (
+      <Route
+        {...rest}
+        render={() => (
+          <Wrapper>
+            <Component />
+          </Wrapper>
+        )}
+      />
+    );
   }
-  return (
-    <Route
-      {...rest}
-      render={() => (
-        <Wrapper>
-          <Component />
-        </Wrapper>
-      )}
-    />
-  );
 };
 
 export default ProtectedRoutes;

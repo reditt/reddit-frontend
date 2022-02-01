@@ -5,13 +5,14 @@ import { ReactComponent as Search } from "../../assets/search.svg";
 import { ReactComponent as Drop } from "../../assets/dropdown.svg";
 import { ReactComponent as Dropinvert } from "../../assets/invertdropdown.svg";
 import { isAuthenticated } from "../../utils/isAuthed.utils";
+import { feeds, create } from "../../constants/navigation.constant";
+import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import medditlogo1 from "../../assets/medditlogo1.png";
 import useOutsideAlerter from "../../utils/outsideClick.utils";
 import MenuDrop from "../MenuDrop";
 import ProfileMenu from "../MenuDrop/ProfileMenu";
-import { useSelector } from "react-redux";
 import CommunityModal from "../CommunityModal";
-import { feeds, create } from "../../constants/navigation.constant";
-import { useLocation } from "react-router-dom";
 
 const Header = () => {
   const Navigate = useHistory();
@@ -29,6 +30,12 @@ const Header = () => {
     indexFeed: {},
   });
 
+  // * data fromm redux store
+  const user = useSelector((state) => state.userReducer.userData);
+  const isOpenCommunityModal = useSelector(
+    (state) => state.modalReducer.communityModal
+  );
+
   // * refs
   useOutsideAlerter(wrapperRef, setIsopenmenu);
   useOutsideAlerter(wrapperRef2, setIsopenmenu2);
@@ -36,9 +43,9 @@ const Header = () => {
   // *useeffects
   useEffect(() => {
     const indexCreate = create.find((item) => item.Route === Location.pathname);
-    console.log(indexCreate);
+
     const indexFeed = feeds.find((item) => item.Route === Location.pathname);
-    console.log(indexFeed);
+
     setIndexForHead({
       indexCreate: indexCreate ? indexCreate : undefined,
       indexFeed: indexFeed ? indexFeed : undefined,
@@ -50,10 +57,6 @@ const Header = () => {
     setSearch(e.target.value);
     console.log(search);
   };
-
-  const isOpenCommunityModal = useSelector(
-    (state) => state.modalReducer.communityModal
-  );
 
   // * check for auth header
   return !Auth ? (
@@ -146,18 +149,18 @@ const Header = () => {
           onClick={() => {
             setIsopenmenu2(true);
           }}
-          className=" flex items-center border-2  border-gray-100 rounded-md absolute right-6 cursor-pointer"
+          className=" flex items-center  rounded-md absolute right-6 cursor-pointer"
         >
           <div className="flex items-center  px-1  cursor-pointer">
             <div className="w-7 h-7 rounded-full ">
               <img
                 className="w-full h-full rounded-full object-cover object-center"
-                src="https://media.pitchfork.com/photos/6107603bae41b5f80c6abdbf/2:1/w_2560%2Cc_limit/weeknd.jpg"
+                src={user?.profilePhoto || medditlogo1}
                 alt="user"
               />
             </div>
             <div className="hidden items-center mx-1 xl:flex">
-              <p className="text-xs ">user name</p>
+              <p className="text-xs ">{user?.name}</p>
             </div>
             {!isopenmenu2 ? (
               <Drop className="w-4" />

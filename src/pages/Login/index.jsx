@@ -54,7 +54,6 @@ const Login = () => {
       let data = { email: email, password: encryptedPassword };
       const result = await authAPI.userLogin(data);
       if (result.status === 200) {
-        console.log(result);
         localStorage.setItem("user", JSON.stringify(result.data.user));
         localStorage.setItem("token", result.data.token);
         Dispatch(setUser(result.data.user));

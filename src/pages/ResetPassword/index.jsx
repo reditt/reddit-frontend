@@ -109,8 +109,8 @@ const ResetPassword = () => {
     }
 
     try {
+      // eslint-disable-next-line
       const result = authApi.resetPassword({ encryptedPassword, resetoken });
-      console.log(result);
     } catch (error) {
       console.log(error);
       setLoading(false);

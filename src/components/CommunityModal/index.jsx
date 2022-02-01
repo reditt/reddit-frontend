@@ -4,12 +4,15 @@ import { ReactComponent as Lock } from "../../assets/lock.svg";
 import { ReactComponent as Eye } from "../../assets/eye.svg";
 import { ReactComponent as Delete } from "../../assets/delete.svg";
 import { ReactComponent as Image } from "../../assets/image.svg";
-import Modal from "../Modal";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { ReactComponent as Info } from "../../assets/info.svg";
 import { useDispatch } from "react-redux";
 import { setCommunityModal } from "../../redux/actions/modal.action";
+import { communityUsername } from "../../utils/regex.utils";
+import { toast } from "react-toastify";
+import ReactTooltip from "react-tooltip";
 import Community from "../../api/community.api";
+import Modal from "../Modal";
+import axios from "axios";
 import Loader from "../Loader";
 
 const CommunityModal = () => {
@@ -41,7 +44,10 @@ const CommunityModal = () => {
     if (ename === "name") {
       try {
         const checkAvailability = await communityApi.checkCommunityName(value);
-        if (checkAvailability.status === 200) {
+        if (
+          checkAvailability.status === 200 &&
+          value.search(communityUsername) !== -1
+        ) {
           setNameAvailable(true);
         } else {
           setNameAvailable(false);
@@ -174,8 +180,19 @@ const CommunityModal = () => {
                     placeholder="community name"
                     className="h-10 bg-gray-100 rounded-md px-2 outline-none text-sm mt-1"
                   />
-                  <p className="text-xxs text-gray-300">
-                    {nameWc} Characters remaining
+                  <p className="text-xxs flex items-center text-gray-300">
+                    {nameWc} Characters remaining{" "}
+                    <Info
+                      data-tip="you can only use alphabets, numaricals, <br/> hiphen & underscore in community name"
+                      data-for="test"
+                      className="ml-2 w-3"
+                    />
+                    <ReactTooltip
+                      id="test"
+                      className="text-xs"
+                      place="bottom"
+                      multiline={true}
+                    />
                   </p>
                   {!name.length ? (
                     <p className="text-xxs text-red-500">

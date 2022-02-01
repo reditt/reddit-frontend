@@ -8,8 +8,6 @@ export const colourStyles = {
     outline: "none",
   }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-    // const color = chroma(data.color);
-    console.log({ data, isDisabled, isFocused, isSelected });
     return {
       ...styles,
       backgroundColor: isFocused ? "rgba(243, 244, 246, 1)" : null,
