@@ -51,12 +51,9 @@ const Router = () => {
         <Route exact path="/forgotpassword" component={ForgotPassword} />
         <Route exact path="/resetpassword/:token" component={ResetPassword} />
         <ProtectedRoutes exact path="/" component={Home} />
-        <ProtectedRoutes exact path="/createpost" component={CreatePost} />
-        <ProtectedRoutes
-          exact
-          path="/community/:name/:type?"
-          component={Community}
-        />
+        <ProtectedRoutes exact path="/:type?" component={Home} />
+        <ProtectedRoutes exact path="/create/post" component={CreatePost} />
+        <Route exact path="/community/:name/:type?" component={Community} />
       </Switch>
     </>
   );

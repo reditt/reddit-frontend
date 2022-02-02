@@ -146,9 +146,16 @@ const Header = () => {
           onClick={() => {
             setIsopenmenu2(true);
           }}
-          className=" flex items-center  rounded-md absolute right-6 cursor-pointer"
+          className=" flex items-center  rounded-md absolute right-6 cursor-pointer hover:bg-gray-100"
         >
-          <div className="flex items-center  px-1  cursor-pointer">
+          <div
+            onClick={() => {
+              setTimeout(() => {
+                setIsopenmenu2(!isopenmenu2);
+              }, 0);
+            }}
+            className="flex items-center  px-1  cursor-pointer"
+          >
             <div className="w-7 h-7 rounded-full ">
               <img
                 className="w-full h-full rounded-full object-cover object-center"

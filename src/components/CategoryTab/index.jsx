@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ReactComponent as Rocket } from "../../assets/rocket.svg";
 import { ReactComponent as Fire } from "../../assets/fire.svg";
 import { ReactComponent as New } from "../../assets/new.svg";
@@ -7,11 +7,23 @@ import cx from "classnames";
 import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 
-const CategoryTab = () => {
+const CategoryTab = ({ classnames }) => {
   const Location = useLocation();
-  const Navigation = useHistory();
+  const Navigate = useHistory();
   const Params = useParams();
+
+  const [path, setPath] = useState("");
+
+  useEffect(() => {
+    if (Location.pathname.includes("community")) {
+      setPath(`/community/${Params.name}`);
+    } else {
+      setPath("");
+    }
+    // eslint-disable-next-line
+  }, []);
 
   // * CONDITIONALLY CLASSNAMES
   const activeState1 = cx({
@@ -37,29 +49,29 @@ const CategoryTab = () => {
 
   return (
     <>
-      <div className="px-2 py-3 rounded-lg flex bg-white mt-4">
+      <div className={`px-2 py-3 rounded-lg flex bg-white ${classnames}`}>
         <button
-          onClick={() => Navigation.push(`/community/${Params.name}/best`)}
+          onClick={() => Navigate.push(`${path}/best`)}
           className={`w-20 p-0.5 justify-center rounded-full  flex items-center text-sm font-semibold mr-4  ${activeState1}`}
         >
           {" "}
           <Rocket className="w-4 mr-1" /> Best
         </button>
         <button
-          onClick={() => Navigation.push(`/community/${Params.name}/hot`)}
+          onClick={() => Navigate.push(`${path}/hot`)}
           className={`w-20 p-0.5 justify-center rounded-full flex items-center text-sm font-semibold mr-4  ${activeState2}`}
         >
           <Fire className="w-4 mr-1" /> Hot
         </button>
         <button
-          onClick={() => Navigation.push(`/community/${Params.name}/new`)}
+          onClick={() => Navigate.push(`${path}/new`)}
           className={`w-20 p-0.5 justify-center rounded-full flex items-center text-sm font-semibold mr-4  ${activeState3}`}
         >
           <New className="w-4 mr-1" />
           New
         </button>
         <button
-          onClick={() => Navigation.push(`/community/${Params.name}/top`)}
+          onClick={() => Navigate.push(`${path}/top`)}
           className={`w-20 p-0.5 justify-center rounded-full flex items-center text-sm font-semibold mr-4  ${activeState4}`}
         >
           <Top className="w-4 mr-1" />

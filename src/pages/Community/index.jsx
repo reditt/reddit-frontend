@@ -5,10 +5,11 @@ import { ReactComponent as ImageLogo } from "../../assets/ImageLogo.svg";
 import { ReactComponent as Link } from "../../assets/Link.svg";
 import { ReactComponent as Cake } from "../../assets/cake.svg";
 import CategoryTab from "../../components/CategoryTab";
+import { motion } from "framer-motion";
 const Community = () => {
   return (
     <>
-      <div>
+      <motion.div animate={{ y: [-100, 10, 0] }} transition={{ duration: 0.5 }}>
         <div className="flex flex-col">
           <div className="flex h-20 bg-gradient-to-r from-blue-300 to-blue-400 "></div>
           <div className="details p-2 pb-6 bg-white shadow-sm">
@@ -60,7 +61,7 @@ const Community = () => {
                     <Link className="w-7 ml-3" />
                   </div>
                 </div>
-                <CategoryTab />
+                <CategoryTab classnames="mt-4" />
               </div>
               <div className="hidden md:flex w-thirty">
                 <div className="w-full bg-white rounded-lg">
@@ -96,7 +97,7 @@ const Community = () => {
             </div>
           </Wrapper>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
