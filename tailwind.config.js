@@ -20,6 +20,7 @@ module.exports = {
       colors: {
         primary: "#4DACFF",
         black: "#2d2d2d",
+        dblack: "#000000",
         modal: "rgba(0, 0, 0, 0.8)",
       },
       fontSize: {
