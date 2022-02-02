@@ -4,7 +4,6 @@ import { ReactComponent as Logo } from "../../assets/maddit.svg";
 import { ReactComponent as Search } from "../../assets/search.svg";
 import { ReactComponent as Drop } from "../../assets/dropdown.svg";
 import { ReactComponent as Dropinvert } from "../../assets/invertdropdown.svg";
-import { isAuthenticated } from "../../utils/isAuthed.utils";
 import { feeds, create } from "../../constants/navigation.constant";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -16,12 +15,11 @@ import CommunityModal from "../CommunityModal";
 
 const Header = () => {
   const Navigate = useHistory();
-  const Auth = isAuthenticated();
   const Location = useLocation();
   const wrapperRef = useRef(null);
   const wrapperRef2 = useRef(null);
 
-  // * local states
+  // * LOCAL STATES
   const [search, setSearch] = useState("");
   const [isopenmenu, setIsopenmenu] = useState(false);
   const [isopenmenu2, setIsopenmenu2] = useState(false);
@@ -30,20 +28,19 @@ const Header = () => {
     indexFeed: {},
   });
 
-  // * data fromm redux store
+  // * DATA FROM REDUX STORE
   const user = useSelector((state) => state.userReducer.userData);
   const isOpenCommunityModal = useSelector(
     (state) => state.modalReducer.communityModal
   );
 
-  // * refs
+  // * REFS FOR OUTSIDE CLICK DETECTION
   useOutsideAlerter(wrapperRef, setIsopenmenu);
   useOutsideAlerter(wrapperRef2, setIsopenmenu2);
 
-  // *useeffects
+  // *USE EFFECTS FOR SET ACTIVETAB
   useEffect(() => {
     const indexCreate = create.find((item) => item.Route === Location.pathname);
-
     const indexFeed = feeds.find((item) => item.Route === Location.pathname);
 
     setIndexForHead({
@@ -52,14 +49,14 @@ const Header = () => {
     });
   }, [Location.pathname]);
 
-  // * function for handlechange search
+  // * HANDLECHANGE FOR SEARCH
   const handleSearch = (e) => {
     setSearch(e.target.value);
     console.log(search);
   };
 
-  // * check for auth header
-  return !Auth ? (
+  // * CONDITIONAL HEADER
+  return !user && !user?.id ? (
     <div className="w-full h-12 px-4 border-2 flex items-center shadow-sm justify-between z-20 bg-white">
       <Logo className="h-10" />
       <div className="hidden h-8 sm:w-64 sm:flex px-2 md:w-96 md:flex lg:w-searchbar lg:h-8 bg-gray-100 lg:flex items-center lg:px-2 rounded-md">

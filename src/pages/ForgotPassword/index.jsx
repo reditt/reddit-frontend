@@ -9,18 +9,22 @@ import Loader from "../../components/Loader";
 const authApi = new Auth();
 
 const ForgotPassword = ({ location }) => {
+  // * LOCAL STATES
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
     email: location.state,
   });
+
   const { email } = userData;
 
+  // *  INPUT HANDKE CHANGE
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setUserData({ ...userData, [name]: value });
   };
 
+  // * FUNCTION TO EMAIL SELD
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);

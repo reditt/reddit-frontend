@@ -41,6 +41,12 @@ const ApiRoutes = {
       Method: HttpMethod.Get,
     },
   },
+  User: {
+    GetUser: {
+      Endpoint: "/user",
+      Method: HttpMethod.Get,
+    },
+  },
 };
 
 export default ApiRoutes;

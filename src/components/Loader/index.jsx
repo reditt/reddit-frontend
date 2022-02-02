@@ -3,6 +3,7 @@ import Lottie from "lottie-react";
 import animationData from "../../assets/loading.json";
 
 const Loader = () => {
+  // * LOTTIE STYLES
   const style = {
     height: 230,
     marginTop: "8rem",

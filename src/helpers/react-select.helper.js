@@ -1,3 +1,4 @@
+// * CUSTOM STYLES FOR REACT-SELECT
 export const colourStyles = {
   control: (base, state) => ({
     ...base,

@@ -13,6 +13,7 @@ const CategoryTab = () => {
   const Navigation = useHistory();
   const Params = useParams();
 
+  // * CONDITIONALLY CLASSNAMES
   const activeState1 = cx({
     "bg-black text-primary": Location.pathname.includes("best"),
     "bg-gray-100 text-black  hover:bg-gray-200":
@@ -33,6 +34,7 @@ const CategoryTab = () => {
     "bg-gray-100 text-black hover:bg-gray-200":
       !Location.pathname.includes("top"),
   });
+
   return (
     <>
       <div className="px-2 py-3 rounded-lg flex bg-white mt-4">

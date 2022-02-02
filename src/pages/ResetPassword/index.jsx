@@ -43,17 +43,20 @@ const ResetPassword = () => {
     }
   });
 
+  // * HANDLECHANGE FOR INPUTS
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setUserData({ ...userData, [name]: value });
   };
 
+  // * PASSWORD VALIDATION
   const validateAlphaNumericPassword = (pwd) => {
     var re = /^[a-z0-9]+$/i;
     return re.test(pwd);
   };
 
+  // * PASSWORD RESET
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);

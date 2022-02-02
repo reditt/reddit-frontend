@@ -1,11 +1,13 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React from "react";
+import { useSelector } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 import Wrapper from "../components/Wrapper";
-import { isAuthenticated } from "../utils/isAuthed.utils";
 
 const ProtectedRoutes = ({ component: Component, ...rest }) => {
-  if (!isAuthenticated) {
+  const user = useSelector((state) => state.userReducer.userData);
+
+  if (!user?.id) {
     return <Redirect to="/login" />;
   } else {
     return (

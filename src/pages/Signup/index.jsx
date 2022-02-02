@@ -1,16 +1,18 @@
 import React from "react";
 import { ReactComponent as Logo } from "../../assets/maddit.svg";
 import { ReactComponent as SignupLogo } from "../../assets/signup.svg";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Auth from "../../api/auth.api";
 import Loader from "../../components/Loader";
+import { useSelector } from "react-redux";
 
 const authAPI = new Auth();
 
 const Signup = () => {
   const Navigate = useHistory();
+  const userRedux = useSelector((state) => state.userReducer.userData);
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
     name: "",
@@ -21,17 +23,20 @@ const Signup = () => {
   });
   const { name, email, encryptedPassword, confirmPassword } = userData;
 
+  // * HANDLECHANGE FOR INPUTS
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setUserData({ ...userData, [name]: value });
   };
 
+  // * PASSWORD VALIDATION
   const validateAlphaNumericPassword = (pwd) => {
     var re = /^[a-z0-9]+$/i;
     return re.test(pwd);
   };
 
+  // * USER SIGNUP
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -124,6 +129,11 @@ const Signup = () => {
       setLoading(false);
     }
   };
+
+  // * CHECK FOR EXISTING USER
+  if (userRedux) {
+    return <Redirect to="/" />;
+  }
 
   return loading ? (
     <Loader />

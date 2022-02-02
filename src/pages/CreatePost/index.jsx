@@ -11,16 +11,17 @@ import { motion } from "framer-motion";
 const animatedComponents = makeAnimated();
 
 const CreatePost = () => {
+  //  ! GOING TO CHANGE WITH MY COMMUNITIES
   const options = [
     { value: "chocolate", label: "Chocolate" },
     { value: "strawberry", label: "Strawberry" },
     { value: "vanilla", label: "Vanilla" },
   ];
-  const fileRef = useRef(null);
 
+  const fileRef = useRef(null);
   const [photo, setPhoto] = useState([]);
 
-  // * handling image files
+  // * HANDLING IMAGE FILES
   const handlePhoto = (e) => {
     e.preventDefault();
     const file = e.target.files[0];

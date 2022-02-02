@@ -10,30 +10,41 @@ import { css } from "@emotion/react";
 import ClipLoader from "react-spinners/SyncLoader";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/actions/setUser.action";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
+// * CUSTOM STTYLES FOR CSS LOADERS
 const override = css`
   display: inline;
   margin-right: 0.5rem;
 `;
 
 const authAPI = new Auth();
+
 const Login = () => {
   const Navigate = useHistory();
   const Dispatch = useDispatch();
 
+  // * REDUX STATE
+  const userRedux = useSelector((state) => state.userReducer.userData);
+
+  // * LOCAL STATE
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
     email: "",
     encryptedPassword: "",
   });
+
   const { email, encryptedPassword } = userData;
 
+  // * HANDLE CHANGE FOR ALL INPUTS
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setUserData({ ...userData, [name]: value });
   };
 
+  // * LOGIN REQUEST
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -83,6 +94,11 @@ const Login = () => {
       setLoading(false);
     }
   };
+
+  // * CHECK FOR EXISTING LOGIN
+  if (userRedux) {
+    return <Redirect to="/" />;
+  }
 
   return loading ? (
     <Loader />

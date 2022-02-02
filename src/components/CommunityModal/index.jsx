@@ -20,8 +20,7 @@ const CommunityModal = () => {
   const Dispatch = useDispatch();
   const communityApi = new Community();
 
-  // eslint-disable-next-line
-  // * local states
+  // * LOCAL STATES
   const [loading, setLoading] = useState(false);
   const [nameAvailable, setNameAvailable] = useState(false);
   const [photo, setPhoto] = useState([]);
@@ -32,15 +31,20 @@ const CommunityModal = () => {
     adult: false,
   });
 
+  // * DESTRUCTURING STATE
   const { name, type, adult } = communityData;
 
-  // * handlechange for inputs
+  // * HANDLECHANGE FOR ALL INPUTS
   const handleChange = async (e) => {
     const ename = e.target.name;
     const value =
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
     setCommunityData({ ...communityData, [ename]: value });
+
+    // * NAME WORDCOUNT
     if (ename === "name") setNameWc(20 - value.length);
+
+    // *CHECK FOR COMMUNITY USERNAME
     if (ename === "name") {
       try {
         const checkAvailability = await communityApi.checkCommunityName(value);
@@ -58,14 +62,14 @@ const CommunityModal = () => {
     }
   };
 
-  // * handling image files
+  // * HANDLING FILE CHANGE
   const handlePhoto = (e) => {
     e.preventDefault();
     const file = e.target.files[0];
     setPhoto(file);
   };
 
-  // * image uplaod on cloudinary
+  // * HANDLING FILE UPLOAD ON CLODINARY
   const uplaodImage = async (file) => {
     const data = new FormData();
     data.append("file", file);
@@ -83,7 +87,7 @@ const CommunityModal = () => {
     }
   };
 
-  // * submitting community details
+  // * CREATING A COMUNITY
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
