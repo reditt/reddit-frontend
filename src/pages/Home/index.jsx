@@ -1,11 +1,11 @@
 import React from "react";
 import Wrapper from "../../components/Wrapper";
-import madditlogo1 from "../../assets/medditlogo1.png";
 import { motion } from "framer-motion";
 import { ReactComponent as ImageLogo } from "../../assets/ImageLogo.svg";
 import { ReactComponent as Link } from "../../assets/Link.svg";
 import Article from "../../components/Article";
 import CategoryTab from "../../components/CategoryTab";
+import TopCommunitySider from "../../components/TopCommunitySider";
 
 const Home = () => {
   return (
@@ -37,82 +37,7 @@ const Home = () => {
             </div>
             {/* right */}
             <div className="hidden md:flex md:flex-col md:w-thirty relative">
-              <div className="w-full rounded-xl sticky top-20">
-                <div
-                  className={`h-12 rounded-t-xl bg-black flex items-center justify-center text-center p-2`}
-                >
-                  <h2 className="text-white font-semibold ">
-                    Top growing communities
-                  </h2>
-                </div>
-                <div className="w-full bg-white p-2 rounded-b-xl">
-                  <div className="flex items-center py-3 border-b-2 border-gray-50">
-                    <img
-                      src={madditlogo1}
-                      className="h-7 w-7 object-cover object-center rounded-full"
-                      alt="avatar"
-                    />
-                    <p className="font-semibold text-black text-sm ml-2">
-                      Community name
-                    </p>
-                    <button className="ml-auto px-4 py-1 text-xs font-semibold text-white bg-primary rounded-full hover:bg-blue-400">
-                      Join
-                    </button>
-                  </div>
-                  <div className="flex items-center py-3 border-b-2 border-gray-50">
-                    <img
-                      src={madditlogo1}
-                      className="h-7 w-7 object-cover object-center rounded-full"
-                      alt="avatar"
-                    />
-                    <p className="font-semibold text-black text-sm ml-2">
-                      Community name
-                    </p>
-                    <button className="ml-auto px-4 py-1 text-xs font-semibold text-white bg-primary rounded-full hover:bg-blue-400">
-                      Join
-                    </button>
-                  </div>
-                  <div className="flex items-center py-3 border-b-2 border-gray-50">
-                    <img
-                      src={madditlogo1}
-                      className="h-7 w-7 object-cover object-center rounded-full"
-                      alt="avatar"
-                    />
-                    <p className="font-semibold text-black text-sm ml-2">
-                      Community name
-                    </p>
-                    <button className="ml-auto px-4 py-1 text-xs font-semibold text-white bg-primary rounded-full hover:bg-blue-400">
-                      Join
-                    </button>
-                  </div>
-                  <div className="flex items-center py-3 border-b-2 border-gray-50">
-                    <img
-                      src={madditlogo1}
-                      className="h-7 w-7 object-cover object-center rounded-full"
-                      alt="avatar"
-                    />
-                    <p className="font-semibold text-black text-sm ml-2">
-                      Community name
-                    </p>
-                    <button className="ml-auto px-4 py-1 text-xs font-semibold text-white bg-primary rounded-full hover:bg-blue-400">
-                      Join
-                    </button>
-                  </div>
-                  <div className="flex items-center py-3 border-b-2 border-gray-50">
-                    <img
-                      src={madditlogo1}
-                      className="h-7 w-7 object-cover object-center rounded-full"
-                      alt="avatar"
-                    />
-                    <p className="font-semibold text-black text-sm ml-2">
-                      Community name
-                    </p>
-                    <button className="ml-auto px-4 py-1 text-xs font-semibold text-white bg-primary rounded-full hover:bg-blue-400">
-                      Join
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <TopCommunitySider />
             </div>
           </div>
         </Wrapper>

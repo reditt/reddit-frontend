@@ -3,11 +3,11 @@ import { ReactComponent as Rocket } from "../../assets/rocket.svg";
 import { ReactComponent as Fire } from "../../assets/fire.svg";
 import { ReactComponent as New } from "../../assets/new.svg";
 import { ReactComponent as Top } from "../../assets/top.svg";
-import cx from "classnames";
 import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import cx from "classnames";
 
 const CategoryTab = ({ classnames }) => {
   const Location = useLocation();

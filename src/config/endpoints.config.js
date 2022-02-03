@@ -40,6 +40,18 @@ const ApiRoutes = {
       Endpoint: "/community/checkname",
       Method: HttpMethod.Get,
     },
+    GetAll: {
+      Endpoint: "/community",
+      Method: HttpMethod.Get,
+    },
+    GetOne: {
+      Endpoint: (name) => `/community/${name}`,
+      Method: HttpMethod.Get,
+    },
+    Join: {
+      Endpoint: (name) => `/community/${name}/join`,
+      Method: HttpMethod.Get,
+    },
   },
   User: {
     GetUser: {

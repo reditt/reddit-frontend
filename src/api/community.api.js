@@ -29,6 +29,9 @@ class Community extends HttpClient {
 
   createConfig = ApiRoutes.Community.CreateCommunity;
   checkNameConfig = ApiRoutes.Community.CheckName;
+  getallConfig = ApiRoutes.Community.GetAll;
+  getoneConfig = ApiRoutes.Community.GetOne;
+  joinConfig = ApiRoutes.Community.Join;
 
   createCommmunity = async (data) => {
     return this.instance({
@@ -36,6 +39,22 @@ class Community extends HttpClient {
       url: this.createConfig.Endpoint,
       headers: {},
       data,
+    });
+  };
+
+  getAllCommunities = async () => {
+    return this.instance({
+      method: this.getallConfig.Method,
+      url: this.getallConfig.Endpoint,
+      headers: {},
+    });
+  };
+
+  getCommunity = async () => {
+    return this.instance({
+      method: this.getallConfig.Method,
+      url: this.getallConfig.Endpoint,
+      headers: {},
     });
   };
 
@@ -47,6 +66,14 @@ class Community extends HttpClient {
       params: {
         name: name,
       },
+    });
+  };
+
+  joinCommunity = async (name) => {
+    return this.instance({
+      method: this.joinConfig.Method,
+      url: this.joinConfig.Endpoint(name),
+      headers: {},
     });
   };
 }
