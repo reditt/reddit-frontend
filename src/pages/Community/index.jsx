@@ -21,6 +21,7 @@ const Community = () => {
 
   useEffect(() => {
     fetchcommunity();
+    // eslint-disable-next-line
   }, []);
 
   const fetchcommunity = async () => {
