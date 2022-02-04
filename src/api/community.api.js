@@ -50,10 +50,10 @@ class Community extends HttpClient {
     });
   };
 
-  getCommunity = async () => {
+  getCommunity = async (name) => {
     return this.instance({
-      method: this.getallConfig.Method,
-      url: this.getallConfig.Endpoint,
+      method: this.getoneConfig.Method,
+      url: this.getoneConfig.Endpoint(name),
       headers: {},
     });
   };

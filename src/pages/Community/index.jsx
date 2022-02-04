@@ -1,13 +1,43 @@
-import React from "react";
-import Wrapper from "../../components/Wrapper";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { ReactComponent as Bell } from "../../assets/bell.svg";
 import { ReactComponent as ImageLogo } from "../../assets/ImageLogo.svg";
 import { ReactComponent as Link } from "../../assets/Link.svg";
 import { ReactComponent as Cake } from "../../assets/cake.svg";
-import CategoryTab from "../../components/CategoryTab";
 import { motion } from "framer-motion";
+import Loader from "../../components/Loader";
+import CategoryTab from "../../components/CategoryTab";
+import Wrapper from "../../components/Wrapper";
+import CommunityApi from "../../api/community.api";
+import moment from "moment";
+
+const communityApi = new CommunityApi();
+
 const Community = () => {
-  return (
+  const Params = useParams();
+
+  const [communityDetails, setCommunityDetails] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchcommunity();
+  }, []);
+
+  const fetchcommunity = async () => {
+    try {
+      const result = await communityApi.getCommunity(Params.name);
+      if (result.status === 200) {
+        setCommunityDetails(result?.data.data);
+        setLoading(false);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return loading ? (
+    <Loader />
+  ) : (
     <>
       <motion.div animate={{ y: [-100, 10, 0] }} transition={{ duration: 0.5 }}>
         <div className="flex flex-col">
@@ -18,17 +48,17 @@ const Community = () => {
                 <div className="w-full sm:w-auto ">
                   <img
                     className="  w-20 h-20 mx-auto  border-4 border-white rounded-full object-cover object-center -mt-10 sm:-mt-8 sm:w-24 sm:h-24"
-                    src="https://assets.teenvogue.com/photos/59ca525c4ae64e5d63809461/16:9/w_2560%2Cc_limit/weeknd-lede.jpg"
+                    src={communityDetails?.logo}
                     alt="avatar"
                   />
                 </div>
                 <div className="flex px-2 w-full flex-col items-center justify-center sm:w-9/12 sm:items-start sm:justify-start sm:flex-row">
                   <div className="flex flex-col text-center sm:text-left ">
                     <h2 className="font-semibold md:text-lg">
-                      Community name will be here
+                      {communityDetails?.name}
                     </h2>
                     <p className="text-sm text-gray-400">
-                      community/communityname
+                      @ {communityDetails?.name}
                     </p>
                   </div>
                   <div className="mt-2 sm:mt-0 sm:ml-4 sm:flex ">
@@ -86,7 +116,7 @@ const Community = () => {
                   <div className="p-2 mb-3">
                     <p className="flex items-end text-sm">
                       <Cake className="mr-2 " />
-                      Created Mar 15, 2013
+                      Created {moment(communityDetails?.createdAt).format("LL")}
                     </p>
                     <button className="py-1 h-7 w-full flex items-center justify-center mt-4 rounded-full font-medium bg-black text-primary text-sm mx-auto">
                       Create Post
